@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matriz de Priorização | Liderança Demarco 2026</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef4fb;
+      color: #16345f;
+    }
+
+    header {
+      background: #173f7a;
+      color: white;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .intro, .scale, .section, .result-box, .action-box {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .scale-card {
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .s1 { background: #fdebea; color: #d93025; }
+    .s2 { background: #fff4d8; color: #b36b00; }
+    .s3 { background: #e6f4ec; color: #137333; }
+
+    .competency {
+      background: #f8fbff;
+      border: 1px solid #d8e4f2;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .competency-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .options label {
+      background: white;
+      border: 1px solid #c7d6e8;
+      border-radius: 999px;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    .options input {
+      margin-right: 6px;
+    }
+
+    button {
+      background: #173f7a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+    }
+
+    button.secondary {
+      background: white;
+      color: #173f7a;
+      border: 1px solid #173f7a;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .quadrant {
+      min-height: 220px;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    .urgent { background: #fdebea; border-color: #f2a5a0; }
+    .leverage { background: #e6f4ec; border-color: #8fd3a8; }
+    .monitor { background: #f8f8f8; border-color: #d3d3d3; }
+    .share { background: #e8f0fe; border-color: #9bbcf5; }
+
+    .item {
+      background: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: bold;
+      background: #fff;
+      border-radius: 999px;
+      padding: 3px 8px;
+      margin-right: 6px;
+      color: #173f7a;
+    }
+
+    .top3 {
+      background: #173f7a;
+      color: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 28px;
+    }
+
+    .priority {
+      background: rgba(255,255,255,0.12);
+      padding: 14px;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      border-radius: 10px;
+      border: 1px solid #d7b45a;
+      padding: 14px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media print {
+      button, .intro, .scale, #formArea {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .result-box, .action-box {
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .scale-grid, .matrix {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Matriz de Priorização</h1>
+    <p>Imersão de Lideranças Demarco 2026</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Como funciona?</h2>
+      <p>
+        Para cada competência abaixo, selecione o nível que melhor representa onde você está hoje.
+        Seja honesto: isso é um espelho, não uma prova. Ao final, sua Matriz de Priorização será gerada automaticamente.
+      </p>
+    </section>
+
+    <section class="scale">
+      <div class="scale-grid">
+        <div class="scale-card s1">
+          <h2>1</h2>
+          <strong>Conheço o conceito</strong>
+          <p>Sei o que é, já ouvi falar, mas ainda não pratico.</p>
+        </div>
+        <div class="scale-card s2">
+          <h2>2</h2>
+          <strong>Conheço e pratico</strong>
+          <p>Já uso no dia a dia, mas ainda em desenvolvimento.</p>
+        </div>
+        <div class="scale-card s3">
+          <h2>3</h2>
+          <strong>Tenho desenvolvida</strong>
+          <p>É um ponto forte meu; sinto-me seguro aplicando.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="formArea"></section>
+
+    <button onclick="generateMatrix()">Gerar minha Matriz</button>
+
+    <section id="resultArea" class="hidden">
+      <div class="result-box">
+        <h2>Sua Matriz de Priorização</h2>
+        <p>Com base nas suas respostas, aqui estão suas competências organizadas por impacto e prontidão.</p>
+
+        <div class="matrix">
+          <div class="quadrant urgent">
+            <h3>Desenvolver Urgente</h3>
+            <small>Alto impacto · Baixa ou média prontidão</small>
+            <div id="urgentList"></div>
+          </div>
+
+          <div class="quadrant leverage">
+            <h3>Alavancar Agora</h3>
+            <small>Alto impacto · Alta prontidão</small>
+            <div id="leverageList"></div>
+          </div>
+
+          <div class="quadrant monitor">
+            <h3>Monitorar</h3>
+            <small>Baixo impacto · Baixa ou média prontidão</small>
+            <div id="monitorList"></div>
+          </div>
+
+          <div class="quadrant share">
+            <h3>Compartilhar</h3>
+            <small>Baixo impacto · Alta prontidão</small>
+            <div id="shareList"></div>
+          </div>
+        </div>
+
+        <div class="top3">
+          <h2>🎯 Suas top 3 prioridades para os próximos 90 dias</h2>
+          <div id="top3List"></div>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <h3>Uma ação. Esta semana.</h3>
+        <p>
+          Com base na sua prioridade #1, qual é a menor ação possível que você pode fazer até sexta-feira?
+        </p>
+        <textarea placeholder="Ex.: Agendar uma conversa difícil. Redefinir prioridades da semana. Delegar uma decisão recorrente. Mapear uma oportunidade de IA no time..."></textarea>
+      </div>
+
+      <button class="secondary" onclick="reviewAnswers()">← Rever respostas</button>
+      <button onclick="window.print()">Imprimir / Salvar PDF</button>
+    </section>
+  </main>
+
+  <script>
+    const competencies = [
+      {
+        bloco: "O Placar do Jogo: Direcionamento Estratégico Demarco 2026",
+        impacto: "alto",
+        items: [
+          "Compreende e comunica o posicionamento tech-first da Demarco",
+          "Conecta estratégia, produto e consultoria nas decisões da área",
+          "Protege o direcionamento estratégico mesmo sob pressão operacional"
+        ]
+      },
+      {
+        bloco: "Entrando em Campo: O Papel do Líder no Pipeline Demarco",
+        impacto: "alto",
+        items: [
+          "Desenvolve autonomia e capacidade dentro do time",
+          "Atua com foco em direcionamento e priorização, não centralização",
+          "Diferencia operação, gestão e estratégia no papel da liderança"
+        ]
+      },
+      {
+        bloco: "Técnico de Times Híbridos: Gente + agente",
+        impacto: "alto",
+        items: [
+          "Identifica oportunidades reais de uso de IA na rotina da área",
+          "Integra pessoas, processos e agentes de IA de forma prática",
+          "Atua com mentalidade de inovação e adaptação tecnológica contínua"
+        ]
+      },
+      {
+        bloco: "O Apito Limpo: Comunicação, Feedback e Conversas Difíceis",
+        impacto: "alto",
+        items: [
+          "Conduz feedbacks com clareza, empatia e direcionamento",
+          "Tem coragem de realizar conversas difíceis no momento adequado",
+          "Promove segurança psicológica e escuta ativa no time"
+        ]
+      },
+      {
+        bloco: "O Vestiário Blindado: Saúde e Performance Sustentável",
+        impacto: "alto",
+        items: [
+          "Equilibra performance e sustentabilidade emocional",
+          "Cria ambiente seguro, saudável e humanizado para o time",
+          "Gerencia energia, limites e recuperação de forma consciente"
+        ]
+      },
+      {
+        bloco: "Priorização estratégica: Priorize o essencial, não o urgente",
+        impacto: "alto",
+        items: [
+          "Distingue urgência de prioridade estratégica",
+          "Mantém foco no que gera maior impacto para o negócio",
+          "Evita dispersão operacional diante de múltiplas demandas"
+        ]
+      },
+      {
+        bloco: "Priorização estratégica: Separe decisão de operação",
+        impacto: "alto",
+        items: [
+          "Fortalece autonomia nas execuções recorrentes",
+          "Atua nas decisões críticas sem microgerenciamento",
+          "Reduz dependência operacional da liderança"
+        ]
+      },
+      {
+        bloco: "Priorização estratégica: Estabeleça limites claros",
+        impacto: "alto",
+        items: [
+          "Define prioridades e expectativas com clareza",
+          "Sabe dizer não para demandas que desviam foco estratégico",
+          "Mantém limites saudáveis de carga e disponibilidade"
+        ]
+      },
+      {
+        bloco: "Priorização estratégica: Cuide dos resultados e das pessoas",
+        impacto: "alto",
+        items: [
+          "Equilibra entrega, desenvolvimento e cuidado com o time",
+          "Constrói relações de confiança e responsabilidade compartilhada",
+          "Sustenta performance sem comprometer o clima da equipe"
+        ]
+      },
+      {
+        bloco: "Priorização estratégica: Cuide de si para sustentar o todo",
+        impacto: "alto",
+        items: [
+          "Demonstra autoconsciência sobre energia, estresse e limites",
+          "Pratica hábitos que sustentam sua performance no longo prazo",
+          "Atua como exemplo de equilíbrio e sustentabilidade na liderança"
+        ]
+      }
+    ];
+
+    const formArea = document.getElementById("formArea");
+
+    let flatCompetencies = [];
+
+    function renderForm() {
+      competencies.forEach((group, groupIndex) => {
+        const section = document.createElement("section");
+        section.className = "section";
+        section.innerHTML = `<h2>${group.bloco}</h2>`;
+
+        group.items.forEach((item, itemIndex) => {
+          const id = `c_${groupIndex}_${itemIndex}`;
+
+          flatCompetencies.push({
+            id,
+            nome: item,
+            bloco: group.bloco,
+            impacto: group.impacto
+          });
+
+          const div = document.createElement("div");
+          div.className = "competency";
+          div.innerHTML = `
+            <div class="competency-title">${item}</div>
+            <div class="options">
+              <label><input type="radio" name="${id}" value="1"> 1 - Conheço o conceito</label>
+              <label><input type="radio" name="${id}" value="2"> 2 - Conheço e pratico</label>
+              <label><input type="radio" name="${id}" value="3"> 3 - Tenho desenvolvida</label>
+            </div>
+          `;
+          section.appendChild(div);
+        });
+
+        formArea.appendChild(section);
+      });
+    }
+
+    function generateMatrix() {
+      const results = [];
+
+      for (const comp of flatCompetencies) {
+        const selected = document.querySelector(`input[name="${comp.id}"]:checked`);
+
+        if (!selected) {
+          alert("Responda todas as competências antes de gerar sua matriz.");
+          return;
+        }
+
+        results.push({
+          ...comp,
+          prontidao: Number(selected.value)
+        });
+      }
+
+      const urgent = [];
+      const leverage = [];
+      const monitor = [];
+      const share = [];
+
+      results.forEach(item => {
+        if (item.impacto === "alto" && item.prontidao < 3) urgent.push(item);
+        else if (item.impacto === "alto" && item.prontidao === 3) leverage.push(item);
+        else if (item.impacto === "baixo" && item.prontidao < 3) monitor.push(item);
+        else share.push(item);
+      });
+
+      renderList("urgentList", urgent);
+      renderList("leverageList", leverage);
+      renderList("monitorList", monitor);
+      renderList("shareList", share);
+
+      const top3 = urgent
+        .sort((a, b) => a.prontidao - b.prontidao)
+        .slice(0, 3);
+
+      renderTop3(top3);
+
+      document.getElementById("resultArea").classList.remove("hidden");
+      document.getElementById("resultArea").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function renderList(id, list) {
+      const container = document.getElementById(id);
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        container.innerHTML = "<p><em>Nenhuma competência neste quadrante.</em></p>";
+        return;
+      }
+
+      list.forEach(item => {
+        container.innerHTML += `
+          <div class="item">
+            <span class="tag">${item.prontidao}</span>
+            ${item.nome}
+            <br><small>${item.bloco}</small>
+          </div>
+        `;
+      });
+    }
+
+    function renderTop3(list) {
+      const container = document.getElementById("top3List");
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        container.innerHTML = "<p>Você não possui competências em prioridade urgente. Excelente ponto de partida.</p>";
+        return;
+      }
+
+      list.forEach((item, index) => {
+        container.innerHTML += `
+          <div class="priority">
+            <strong>${index + 1}. ${item.nome}</strong>
+            <br>
+            <small>${item.bloco} · Prontidão ${item.prontidao}</small>
+          </div>
+        `;
+      });
+    }
+
+    function reviewAnswers() {
+      document.getElementById("formArea").scrollIntoView({ behavior: "smooth" });
+    }
+
+    renderForm();
+  </script>
+</body>
+</html>
